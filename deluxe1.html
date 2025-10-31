@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>디럭스 스위트 - I LOVE YOU PENSION</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #faf7f3;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 14px 30px;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+
+header a.logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #3e2f23;
+}
+
+nav a {
+    margin-left: 20px;
+    color: #3e2f23;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+nav a:hover{
+    color: #b07a35;
+}
+
+.hero {
+    height: 60vh;
+    background: url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;
+    position: relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.35);
+}
+
+.hero .text{
+    position:relative;
+    z-index:2;
+}
+.hero h1{
+    font-size:2.4rem;
+    font-weight:700;
+    margin:0 0 14px 0;
+}
+.hero p{
+    font-size:1.1rem;
+    opacity:0.9;
+}
+
+section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.room-detail{
+    margin-bottom:50px;
+}
+.room-detail h2{
+    font-size:1.7rem;
+    font-weight:700;
+    color:#3e2f23;
+    margin-bottom:20px;
+}
+.room-detail p{
+    font-size:1rem;
+    color:#555;
+    margin-bottom:12px;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:16px;
+    background:#b07a35;
+    color:white;
+    padding:12px 22px;
+    border-radius:50px;
+    text-decoration:none;
+    font-size:0.95rem;
+    font-weight:600;
+    transition:0.25s;
+}
+.back-btn:hover{
+    background:#8c5e26;
+}
+
+footer{
+    padding:40px 20px;
+    background:#3e2f23;
+    color:white;
+    text-align:center;
+    font-size:0.9rem;
+    margin-top:80px;
+}
+
+/* 갤러리 이미지 */
+.gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap:14px;
+}
+.gallery img{
+    width:100%;
+    border-radius:14px;
+    object-fit:cover;
+    height:220px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.gallery img:hover{
+    transform: scale(1.05);
+}
+
+/* 모달 스타일 */
+#modal {
+    display:none;
+    position:fixed;
+    z-index:2000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.9);
+    align-items:center;
+    justify-content:center;
+    flex-direction: column;
+}
+
+#modal-content {
+    position:relative;
+    max-width:90%;
+    max-height:70%;
+}
+
+#modal-img {
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:10px;
+}
+
+.close, .prev, .next {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    color:white;
+    font-size:2rem;
+    font-weight:bold;
+    cursor:pointer;
+    user-select:none;
+    padding:8px 12px;
+    border-radius:5px;
+    background: rgba(0,0,0,0.4);
+}
+.close{
+    top:10px;
+    right:20px;
+    transform:none;
+}
+.prev{
+    left:10px;
+}
+.next{
+    right:10px;
+}
+
+/* 썸네일 리스트 */
+#thumb-container {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-top:10px;
+    width:90%;
+    position:relative;
+}
+
+#thumb-list {
+    display:flex;
+    overflow:hidden;
+    gap:8px;
+    width:calc(100% - 60px);
+}
+
+#thumb-list img {
+    flex:0 0 22%;
+    border-radius:6px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:0.3s;
+}
+#thumb-list img.active{
+    border-color:#b07a35;
+}
+
+#thumb-prev, #thumb-next{
+    font-size:2rem;
+    color:white;
+    background: rgba(0,0,0,0.4);
+    padding:4px 8px;
+    cursor:pointer;
+    border-radius:5px;
+    user-select:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <a href="./index3.html" class="logo">I LOVE YOU PENSION</a>
+    <nav>
+        <a href="index.html#rooms">객실</a>
+        <a href="index.html#gallery">갤러리</a>
+        <a href="index.html#contact">문의</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <div class="text">
+        <h1>디럭스 스위트</h1>
+        <p>감성 인테리어·개별 바베큐·반려견 편의시설</p>
+    </div>
+</div>
+
+<section class="room-detail">
+    <h2>객실 소개</h2>
+    <p>디럭스 스위트는 프라이빗한 공간에서 편안하게 휴식할 수 있는 객실입니다.  
+    반려견과 함께 머무를 수 있으며, 개별 바베큐 시설과 감성 인테리어가 특징입니다.</p>
+
+    <h2>시설 안내</h2>
+    <p>- 퀸 사이즈 침대 1개</p>
+    <p>- 개별 바베큐 공간</p>
+    <p>- 반려견 전용 침구 및 용품 제공</p>
+    <p>- 전용 욕실 및 욕조</p>
+    <p>- 무료 Wi-Fi 및 TV</p>
+
+    <h2>갤러리</h2>
+    <div class="gallery">
+        <img src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(0)">
+        <img src="https://images.pexels.com/photos/271619/pexels-photo-271619.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(1)">
+        <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(2)">
+        <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(3)">
+    </div>
+
+    <a href="./index3.html#rooms" class="back-btn">목록으로 돌아가기</a>
+</section>
+
+<!-- 모달 -->
+<div id="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+    <span class="next" onclick="changeSlide(1)">&#10095;</span>
+
+    <div id="modal-content">
+        <img id="modal-img" src="">
+    </div>
+
+    <!-- 썸네일 리스트 -->
+    <div id="thumb-container">
+        <span id="thumb-prev" onclick="scrollThumbs(-1)">&#10094;</span>
+        <div id="thumb-list"></div>
+        <span id="thumb-next" onclick="scrollThumbs(1)">&#10095;</span>
+    </div>
+</div>
+
+<footer>
+    © I LOVE YOU PENSION. All rights reserved.
+</footer>
+
+<script>
+const galleryImages = [
+    'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    'https://images.pexels.com/photos/271619/pexels-photo-271619.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    'https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=1600'
+];
+
+let currentIndex = 0;
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modal-img');
+const thumbList = document.getElementById('thumb-list');
+
+function openModal(index){
+    currentIndex = index;
+    modal.style.display = 'flex';
+    modalImg.src = galleryImages[currentIndex];
+    renderThumbs();
+}
+
+function closeModal(){
+    modal.style.display = 'none';
+}
+
+function changeSlide(direction){
+    currentIndex += direction;
+    if(currentIndex < 0) currentIndex = galleryImages.length - 1;
+    if(currentIndex >= galleryImages.length) currentIndex = 0;
+    modalImg.src = galleryImages[currentIndex];
+    renderThumbs();
+}
+
+function renderThumbs(){
+    thumbList.innerHTML = '';
+    galleryImages.forEach((src,i)=>{
+        const thumb = document.createElement('img');
+        thumb.src = src;
+        thumb.className = (i===currentIndex?'active':'');
+        thumb.onclick = ()=>{ openModal(i); };
+        thumbList.appendChild(thumb);
+    });
+}
+
+function scrollThumbs(direction){
+    thumbList.scrollBy({
+        left: direction * 100,
+        behavior:'smooth'
+    });
+}
+
+// 모달 밖 클릭 시 닫기
+window.onclick = function(event){
+    if(event.target == modal){
+        closeModal();
+    }
+}
+</script>
+
+</body>
+</html>

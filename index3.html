@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>I LOVE YOU PENSION</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+    body {
+        margin: 0;
+        font-family: 'Noto Sans KR', sans-serif;
+        background: #faf7f3;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 14px 30px;
+        box-sizing: border-box;
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(6px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        z-index: 1000;
+    }
+
+    header a.logo {
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: #3e2f23;
+    }
+
+    nav a {
+        margin-left: 20px;
+        color: #3e2f23;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+    nav a:hover{
+        color: #b07a35;
+    }
+
+    .hero {
+        height: 80vh;
+		background: url('https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;
+        position: relative;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        color:white;
+    }
+
+    .hero::after{
+        content:"";
+        position:absolute;
+        top:0;left:0;width:100%;height:100%;
+        background:rgba(0,0,0,0.35);
+    }
+
+    .hero .text{
+        position:relative;
+        z-index:2;
+    }
+    .hero h1{
+        font-size:2.4rem;
+        font-weight:700;
+        margin:0 0 14px 0;
+    }
+    .hero p{
+        font-size:1.1rem;
+        opacity:0.9;
+    }
+
+    section {
+        padding: 80px 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .sec-title {
+        text-align: center;
+        font-size: 1.9rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        color: #3e2f23;
+    }
+
+    .rooms{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+    }
+
+    @media (max-width: 1200px) { .rooms{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px) { .rooms{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .rooms{ grid-template-columns: 1fr; } }
+
+    .room-card{
+        background:white;
+        border-radius:18px;
+        overflow:hidden;
+        box-shadow:0 8px 14px rgba(0,0,0,0.08);
+        transition:0.3s;
+    }
+    .room-card:hover{
+        transform:translateY(-4px);
+    }
+    .room-card img{
+        width:100%;
+        height:180px;
+        object-fit:cover;
+    }
+    .room-card .info{
+        padding:20px;
+    }
+    .room-card h3{
+        margin:0 0 10px 0;
+        font-weight:700;
+        color:#3e2f23;
+    }
+    .room-card p{
+        font-size:0.9rem;
+        color:#555;
+    }
+
+    .reserve-btn{
+        display:inline-block;
+        margin-top:16px;
+        background:#b07a35;
+        color:white;
+        padding:12px 22px;
+        border-radius:50px;
+        text-decoration:none;
+        font-size:0.95rem;
+        font-weight:600;
+        transition:0.25s;
+    }
+    .reserve-btn:hover{
+        background:#8c5e26;
+    }
+
+    .gallery{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+        gap:14px;
+    }
+    .gallery img{
+        width:100%;
+        border-radius:14px;
+        object-fit:cover;
+        height:220px;
+        cursor:pointer;
+        transition:0.3s;
+    }
+    .gallery img:hover{
+        transform: scale(1.05);
+    }
+
+    footer{
+        padding:40px 20px;
+        background:#3e2f23;
+        color:white;
+        text-align:center;
+        font-size:0.9rem;
+        margin-top:80px;
+    }
+
+    .floating{
+        position:fixed;
+        right:20px;
+        bottom:20px;
+        background:#03c75a;
+        color:white;
+        padding:12px 18px;
+        border-radius:50px;
+        font-size:0.9rem;
+        font-weight:600;
+        text-decoration:none;
+        box-shadow:0 6px 14px rgba(0,0,0,0.15);
+        z-index:1000;
+    }
+    .floating:hover{ background:#02aa4d; }
+
+    iframe{
+        border-radius:14px;
+        border:0;
+        width:100%;
+        height:400px;
+    }
+
+    /* 모달 스타일 */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        padding-top: 80px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .modal-content {
+        position: relative;
+        margin: auto;
+        max-width: 900px;
+        width: 90%;
+        border-radius: 10px;
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .close {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -30px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 24px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        background: rgba(0,0,0,0.3);
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+</style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">I LOVE YOU PENSION</a>
+        <nav>
+            <a href="#rooms">객실</a>
+            <a href="#gallery">갤러리</a>
+            <a href="#contact">문의</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="text">
+            <h1>우리 반려견과 편안한 여행</h1>
+            <p>개별 풀빌라 · 애견 편의시설 · 자연뷰</p>
+        </div>
+    </div>
+
+    <section id="rooms">
+        <h2 class="sec-title">객실 안내</h2>
+        <div class="rooms">
+
+            <div class="room-card">
+                <img src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1600">
+                <div class="info">
+                    <h3>디럭스 스위트</h3>
+                    <p>감성 인테리어·개별 바베큐·반려견 편의시설 구비</p>
+                    <a href="./deluxe1.html" class="reserve-btn">자세히 보기</a>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://images.pexels.com/photos/271619/pexels-photo-271619.jpeg?auto=compress&cs=tinysrgb&w=1600">
+                <div class="info">
+                    <h3>패밀리 풀빌라</h3>
+                    <p>가족/반려견과 프라이빗 수영장 사용 가능</p>
+                    <a href="./deluxe2.html" class="reserve-btn">자세히 보기</a>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600">
+                <div class="info">
+                    <h3>풀프리미엄</h3>
+                    <p>독채형, 개별 정원, 야외 스파</p>
+                    <a href="./deluxe3.html" class="reserve-btn">자세히 보기</a>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://images.pexels.com/photos/271625/pexels-photo-271625.jpeg?auto=compress&cs=tinysrgb&w=1600">
+                <div class="info">
+                    <h3>패밀리 스위트</h3>
+                    <p>프라이빗 풀, 반려견 전용 시설</p>
+                    <a href="./deluxe4.html" class="reserve-btn">자세히 보기</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="sec-title">갤러리</h2>
+        <div class="gallery">
+            <img src="https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(0)">
+            <img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(1)">
+            <img src="https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(2)">
+            <img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1600" onclick="openModal(3)">
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="sec-title">오시는 길 & 문의</h2>
+        <div style="text-align:center; font-size:1rem; margin-bottom:30px;">
+            주소 : 충청북도 용설호수길 245-35 <br>
+            대표전화 : 010-0000-0000
+        </div>
+        <div style="width:100%; max-width:800px; margin:auto;">
+            <iframe src="https://map.naver.com/p/search/%EC%9A%A9%EC%84%A4%ED%98%B8%EC%88%98%EA%B8%B8%20245-35/address/14187151.8221929,4445886.2496565,%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%95%88%EC%84%B1%EC%8B%9C%20%EC%A3%BD%EC%82%B0%EB%A9%B4%20%EC%9A%A9%EC%84%A4%ED%98%B8%EC%88%98%EA%B8%B8%20245-35,new?c=18.00,0,0,2,dh&isCorrectAnswer=true" width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
+        </div>
+    </section>
+
+    <a href="https://booking.naver.com/" class="floating" target="_blank">네이버 예약</a>
+
+    <footer>
+        © I LOVE YOU PENSION. All rights reserved.
+    </footer>
+
+    <!-- 모달 구조 -->
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+        <span class="next" onclick="changeSlide(1)">&#10095;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="">
+        </div>
+    </div>
+
+<script>
+    const galleryImages = [
+        'https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1600',
+        'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1600',
+        'https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&w=1600',
+        'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1600'
+    ];
+
+    let currentIndex = 0;
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+
+    function openModal(index){
+        currentIndex = index;
+        modal.style.display = 'block';
+        modalImg.src = galleryImages[currentIndex];
+    }
+
+    function closeModal(){
+        modal.style.display = 'none';
+    }
+
+    function changeSlide(direction){
+        currentIndex += direction;
+        if(currentIndex < 0) currentIndex = galleryImages.length - 1;
+        if(currentIndex >= galleryImages.length) currentIndex = 0;
+        modalImg.src = galleryImages[currentIndex];
+    }
+
+    // 모달 밖 클릭 시 닫기
+    window.onclick = function(event){
+        if(event.target == modal){
+            closeModal();
+        }
+    }
+</script>
