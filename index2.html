@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>골드스푼 애견 풀빌라 - 샘플</title>
+  <meta name="description" content="감성적인 펜션 랜딩 페이지 템플릿 (GitHub Pages용) - 네이버 예약 연동">
+  <style>
+    :root{--bg:#fff;--text:#222;--muted:#6b6b6b;--accent:#2b7a78;--accent-2:#f2c57c}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+    header{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:rgba(255,255,255,0.6);backdrop-filter:blur(6px);z-index:40}
+    .logo{font-weight:700;letter-spacing:0.6px}
+    nav{display:flex;gap:18px}
+    nav a{font-size:14px;color:var(--text);text-decoration:none}
+    .hero{height:86vh;min-height:560px;display:grid;align-items:center;position:relative}
+    .hero .bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop');background-size:cover;background-position:center;filter:brightness(.55)}
+    .hero .inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:36px;color:#fff}
+    .tag{display:inline-block;background:rgba(0,0,0,0.25);padding:6px 12px;border-radius:999px;margin-bottom:18px;font-size:13px}
+    h1{margin:0 0 12px;font-size:40px;line-height:1.05}
+    p.lead{margin:0 0 18px;color:rgba(255,255,255,0.9);font-size:18px}
+    .cta{display:flex;gap:12px}
+    .btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.2)}
+
+    main{max-width:1100px;margin:36px auto;padding:0 20px}
+    .section{padding:60px 0;border-bottom:1px solid #f2f2f2}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+    .card img{width:100%;height:220px;object-fit:cover}
+    .card .body{padding:14px}
+    .muted{color:var(--muted);font-size:14px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#f6f6f6;font-size:13px;margin-right:8px}
+
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .gallery img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+
+    footer{padding:36px 20px;text-align:center;color:var(--muted)}
+
+    /* mobile */
+    @media(max-width:900px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      h1{font-size:28px}
+      header{padding:12px 16px}
+    }
+    @media(max-width:520px){
+      .grid{grid-template-columns:1fr}
+      .hero{height:68vh}
+      .hero .inner{padding:18px}
+      nav{display:none}
+    }
+
+    /* floating reserve */
+    .reserve{position:fixed;right:20px;bottom:28px;z-index:60}
+    .reserve .btn{display:block;padding:14px 18px;border-radius:999px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:100}
+    .modal .box{background:#fff;border-radius:12px;max-width:720px;width:94%;padding:18px}
+    .close{background:#eee;padding:6px 10px;border-radius:8px;display:inline-block}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">골드스푼 애견 풀빌라</div>
+    <nav>
+      <a href="#rooms">객실</a>
+      <a href="#gallery">갤러리</a>
+      <a href="#location">오시는 길</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="#reserve" id="navReserve">네이버 예약</a>
+  </header>
+
+  <section class="hero">
+    <div class="bg" role="img" aria-label="펜션 전경"></div>
+    <div class="inner">
+      <span class="tag">가평 · 애견동반 · 풀빌라</span>
+      <h1>도시를 떠나, 편히 쉴 수 있는 우리집 같은 곳</h1>
+      <p class="lead">전 객실 개별 풀 · 애견 편의시설 완비 · 프라이빗한 힐링 스테이</p>
+      <div class="cta">
+        <a class="btn" href="https://booking.naver.com/" target="_blank" rel="noopener" id="ctaReserve">네이버 예약하기</a>
+        <a class="btn ghost" href="#rooms">객실 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="rooms" class="section">
+      <h2>객실 소개</h2>
+      <div class="grid" style="margin-top:18px">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1505691723518-36a5b5e6f6f9?q=80&w=1200&auto=format&fit=crop" alt="객실 A">
+          <div class="body">
+            <h3 style="margin:0 0 8px">스위트 풀빌라</h3>
+            <div class="muted">최대 6인 · 개별수영장 · 바베큐</div>
+            <p style="margin:12px 0 0;font-size:14px;color:var(--muted)">프라이빗 풀과 야외 테라스가 있는 독채형 객실입니다.</p>
+            <div style="margin-top:12px"><a class="pill" href="#" onclick="openModal('스위트 풀빌라')">상세보기</a> <a class="pill" href="https://booking.naver.com/" target="_blank">예약하기</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop" alt="객실 B">
+          <div class="body">
+            <h3 style="margin:0 0 8px">가족형 빌라</h3>
+            <div class="muted">최대 8인 · 주방 · 반려견 가능</div>
+            <p style="margin:12px 0 0;font-size:14px;color:var(--muted)">넉넉한 거실과 주방으로 가족단위에 적합합니다.</p>
+            <div style="margin-top:12px"><a class="pill" href="#" onclick="openModal('가족형 빌라')">상세보기</a> <a class="pill" href="https://booking.naver.com/" target="_blank">예약하기</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop" alt="객실 C">
+          <div class="body">
+            <h3 style="margin:0 0 8px">커플 스튜디오</h3>
+            <div class="muted">최대 2인 · 야외 데크</div>
+            <p style="margin:12px 0 0;font-size:14px;color:var(--muted)">은은한 조명과 프라이빗한 데크가 특징입니다.</p>
+            <div style="margin-top:12px"><a class="pill" href="#" onclick="openModal('커플 스튜디오')">상세보기</a> <a class="pill" href="https://booking.naver.com/" target="_blank">예약하기</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <h2>포토 갤러리</h2>
+      <div class="gallery" style="margin-top:18px">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+        <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+        <img src="https://images.unsplash.com/photo-1499696010182-8b14b3a0f0b1?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+      </div>
+    </section>
+
+    <section id="location" class="section">
+      <h2>오시는 길</h2>
+      <p class="muted">경기 가평군 상면 임초밤안골로 119-100</p>
+      <div style="margin-top:12px">
+        <!-- 카카오맵 또는 네이버 지도 iframe 사용 -->
+        <iframe src="https://map.kakao.com/?urlX=0&map_type=TYPE_MAP" style="width:100%;height:360px;border:0;border-radius:12px"></iframe>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <h2>자주 묻는 질문</h2>
+      <details style="margin-top:12px"><summary>반려견 동반 시 추가요금이 있나요?</summary><div style="padding:12px" class="muted">객실당 1마리 무료, 2마리부터는 추가요금이 발생합니다. (예시)</div></details>
+      <details style="margin-top:12px"><summary>체크인/체크아웃 시간은?</summary><div style="padding:12px" class="muted">체크인 15:00 / 체크아웃 11:00</div></details>
+    </section>
+
+    <footer>
+      <div style="max-width:900px;margin:0 auto">
+        <p style="margin:0 0 8px">골드스푼 애견 풀빌라</p>
+        <p style="margin:0;font-size:13px;color:var(--muted)">전화: 010-7313-9059 · 이메일: info@example.com</p>
+        <p style="margin-top:12px;font-size:13px;color:var(--muted)">© 2025 골드스푼</p>
+      </div>
+    </footer>
+  </main>
+
+  <div class="reserve">
+    <a class="btn" href="https://booking.naver.com/" target="_blank" id="reserveBtn">네이버 예약</a>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong id="modalTitle">상세</strong>
+        <button class="close" onclick="closeModal()">닫기</button>
+      </div>
+      <div id="modalBody" style="color:var(--muted)">상세 정보가 여기에 표시됩니다.</div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(title){
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalBody').textContent = title + '에 대한 상세 설명을 여기에 작성하세요.';
+      document.getElementById('modal').style.display = 'flex';
+    }
+    function closeModal(){document.getElementById('modal').style.display = 'none'}
+
+    // 간단한 스크롤 애니 (가벼운)
+    document.addEventListener('scroll', function(){
+      const hero = document.querySelector('.hero');
+      const header = document.querySelector('header');
+      if(window.scrollY > 60){ header.style.background = 'rgba(255,255,255,0.95)'; }
+      else{ header.style.background = 'rgba(255,255,255,0.6)'; }
+    });
+
+    // 네이버 예약 버튼에 analytics용 클릭 이벤트
+    document.getElementById('ctaReserve').addEventListener('click', function(){
+      console.log('예약 버튼 클릭');
+    });
+  </script>
+</body>
+</html>
